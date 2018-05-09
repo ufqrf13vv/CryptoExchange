@@ -3059,6 +3059,10 @@ fill-range@^4.0.0:
     repeat-string "^1.6.1"
     to-regex-range "^2.1.0"
 
+final-form@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.6.1.tgz#e3f3058524c2eb8b950be452087ffe124e39554d"
+
 finalhandler@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.1.1.tgz#eebf4ed840079c83f4249038c9d703008301b105"
@@ -4729,6 +4733,10 @@ lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
 
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+
 lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
@@ -6200,9 +6208,19 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
+react-final-form@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-final-form/-/react-final-form-3.4.0.tgz#8ed2268d00bce5a1d328e75c1dee4ba18c023b24"
+
 react-is@^16.3.2:
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.3.2.tgz#f4d3d0e2f5fbb6ac46450641eb2e25bf05d36b22"
+
+react-particles-js@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/react-particles-js/-/react-particles-js-2.1.3.tgz#f7ec18648dd0a05640817c8b4d55c8595e2a9db7"
+  dependencies:
+    lodash.clonedeep "^4.5.0"
 
 react-reconciler@^0.7.0:
   version "0.7.0"
