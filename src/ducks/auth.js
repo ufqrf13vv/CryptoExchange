@@ -5,38 +5,40 @@ const {
     authSuccess,
     authFailure
     } = createActions(
-    {
-        AUTH_REQUEST: null,
-        AUTH_SUCCESS: null,
-        AUTH_FAILURE: null
-    }
+    'AUTH_REQUEST',
+    'AUTH_SUCCESS',
+    'AUTH_FAILURE'
 );
+
+const initialState = {
+    isAuthorize: false,
+    loginError: null
+};
 
 export default handleActions(
     {
         [authRequest]: (state, action) => ({
             ...state,
             isAuthorize: false,
-            isFetching: true,
-            error: null
-        })
-    }, null,
-    {
+            loginError: null
+        }),
+
         [authSuccess]: (state, action) => ({
             ...state,
-            isAuthorize: false,
-            isFetching: true,
-            error: null
-        })
-    }, null,
-    {
+            isAuthorize: true,
+            loginError: null
+        }),
+
         [authFailure]: (state, action) => ({
             ...state,
             isAuthorize: false,
-            isFetching: true,
-            error: null
+            loginError: action.payload
         })
-    }, null
+    },
+    initialState
 )
 
 export { authRequest, authSuccess, authFailure };
+
+export const getIsAuthorize = state => state.auth.isAuthorize;
+export const getAuthError = state => state.auth.loginError;

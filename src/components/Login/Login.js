@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
+//  Ducks
+import { authRequest, getIsAuthorize, getAuthError } from '../../ducks/auth';
+import { registrationRequest, getIsRegistered, getRegError } from '../../ducks/registration';
 //  Particles
 import Particles from 'react-particles-js';
 import particlesParams from '../../assets/js/particles-params';
@@ -10,26 +13,25 @@ import logo from '../../assets/img/Logo.svg';
 import Input from './Input';
 
 const formValidation = values => {
-    const errors = {};
-    const user = {};
-
-    if (!values.login) {
-        user.login = 'login required';
-    }
-
-    if (values.login && values.login.length < 10) {
-        user.login = 'First name must be more than 10 symbols';
-    }
-
-    if (Object.keys(user).length > 0) {
-        errors.user = user;
-        console.log(errors)
-
-        return errors;
-    }
+    //const errors = {};
+    //const user = {};
+    //
+    //if (!values.email) {
+    //    user.email = 'login required';
+    //}
+    //
+    //if (values.email && values.email.length < 10) {
+    //    user.email = 'First name must be more than 10 symbols';
+    //}
+    //
+    //if (Object.keys(user).length > 0) {
+    //    errors.user = user;
+    //
+    //    return errors;
+    //}
 };
 
-export default class Login extends Component {
+class Login extends Component {
 
     state = {
         action: 'login'
@@ -44,8 +46,13 @@ export default class Login extends Component {
     };
 
     handleSubmit = values => {
-        console.log('handleSubmit');
-        console.log(values);
+        const { action } = this.state;
+
+        if (action === 'login') {
+            this.props.authRequest(values);
+        } else {
+            this.props.registrationRequest(values);
+        }
     };
 
     render() {
@@ -71,7 +78,7 @@ export default class Login extends Component {
                             >
                                 <div className="input-text__wrapper input-text__wrapper--login">
                                     <Field
-                                        name="login"
+                                        name="email"
                                         component={Input}
                                         placeholder="email"
                                         type="email"
@@ -95,7 +102,7 @@ export default class Login extends Component {
                         {action === 'login' ?
                             'Впервые на сайте? ' :
                             'Уже зарегистрированы? '}
-                        <a href="#"
+                        <a href=""
                             onClick={this.handleClick}>
                             {action === 'login' ? 'Регистрация' : 'Войти'}
                         </a>
@@ -106,13 +113,16 @@ export default class Login extends Component {
     }
 }
 
-//const mapStateToProps = state => ({
-//    isAuthorized: getIsAuthorized(state)
-//});
-//
-//const mapDispatchToProps = { authRequest };
-//
-//export default connect(
-//    mapStateToProps,
-//    mapDispatchToProps
-//)(Login);
+const mapStateToProps = state => ({
+    isAuthorize: getIsAuthorize(state),
+    loginError: getAuthError(state),
+    isRegister: getIsRegistered(state),
+    regError: getRegError(state)
+});
+
+const mapDispatchToProps = { authRequest, registrationRequest };
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Login);
