@@ -21,6 +21,7 @@ export default function* authWatch() {
                 try {
                     const action = yield take(authRequest);
                     const result = yield call(login, action.payload);
+                    
                     token = result.data.jwt;
 
                     yield call(setTokenApi, token);
@@ -28,7 +29,6 @@ export default function* authWatch() {
 
                     yield put(authSuccess());
                 } catch (error) {
-                    console.log(error)
                     const message = error.data.message;
 
                     yield put(authFailure(message));

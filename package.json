@@ -5,7 +5,10 @@
   "license": "MIS",
   "dependencies": {
     "axios": "^0.18.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
     "final-form": "^4.6.1",
+    "prettier": "^1.12.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-final-form": "^3.4.0",

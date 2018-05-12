@@ -23,7 +23,7 @@ export function* registerFlow(action) {
             message += `${key}: ${messages[key]}`;
         }
 
-        yield put(registrationFailure(error));
+        yield put(registrationFailure(message));
     }
 }
 

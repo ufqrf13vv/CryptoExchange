@@ -3,6 +3,19 @@ import React, { Component } from 'react';
 import logo from '../../assets/img/Logo.svg';
 
 export default class Trade extends Component {
+
+    handleChange = () => {
+        console.log('change')
+    };
+
+    handleBuy = () => {
+
+    };
+
+    handleSell = () => {
+
+    };
+
     render() {
         return (
             <div>
@@ -59,15 +72,40 @@ export default class Trade extends Component {
                                 <h2 className="medium-title">Покупка/продажа</h2>
                                 <div className="score">
                                     <div className="score__row">
-                                        <div className="score__item score__item--small score__item--btc">0.1</div>
+                                        <input 
+                                            className="score__item score__item--small score__item--btc"
+                                            type="text" 
+                                            value="0.2"
+                                            onChange={this.handleChange}
+                                        />
                                     </div>
                                     <div className="score__row">
-                                        <div className="score__item score__item--small score__item--usd">55.43</div>
-                                        <button className="button button--red">Купить</button>
+                                        <input 
+                                            className="score__item score__item--small score__item--usd" 
+                                            type="text" 
+                                            value="55.43"
+                                            onChange={this.handleChange}
+                                        />
+                                        <button 
+                                            className="button button--red"
+                                            onClick={this.handleBuy}
+                                            >
+                                            Купить
+                                        </button>
                                     </div>
                                     <div className="score__row">
-                                        <div className="score__item score__item--small score__item--usd">55.12</div>
-                                        <button className="button button--blue">Продать</button>
+                                        <input 
+                                            className="score__item score__item--small score__item--usd"
+                                            type="text" 
+                                            value="55.12" 
+                                            onChange={this.handleChange}
+                                        />
+                                        <button 
+                                            className="button button--blue"
+                                            onClick={this.handleSell}
+                                            >
+                                            Продать
+                                        </button>
                                     </div>
                                 </div>
                             </div>
