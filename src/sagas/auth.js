@@ -28,6 +28,7 @@ export default function* authWatch() {
 
                     yield put(authSuccess());
                 } catch (error) {
+                    console.log(error)
                     const message = error.data.message;
 
                     yield put(authFailure(message));

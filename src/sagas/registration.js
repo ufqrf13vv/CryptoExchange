@@ -9,8 +9,8 @@ export function* registerFlow(action) {
         const result = yield call(registration, action.payload);
         const token = result.data.jwt;
 
-        setTokenToLocalStorage(token);
-        setTokenApi(token);
+        yield call(setTokenToLocalStorage, token);
+        yield call(setTokenApi, token);
 
         yield put(registrationSuccess(token));
         yield put(authSuccess());
@@ -19,11 +19,11 @@ export function* registerFlow(action) {
         const keys = Object.keys(messages);
         let message = '';
 
-        for (const key of keys) {
+        for (let key of keys) {
             message += `${key}: ${messages[key]}`;
         }
 
-        yield put(registrationFailure(message));
+        yield put(registrationFailure(error));
     }
 }
 
