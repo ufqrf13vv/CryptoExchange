@@ -18,20 +18,16 @@ const initialState = {
 export default handleActions(
     {
         [registrationRequest]: (state, action) => ({
-            ...state,
-            isRegistered: false,
-            regError: null
+            ...state
         }),
 
         [registrationSuccess]: (state, action) => ({
             ...state,
-            isRegistered: true,
-            regError: null
+            isRegistered: true
         }),
 
         [registrationFailure]: (state, action) => ({
             ...state,
-            isRegistered: false,
             regError: action.payload
         })
     },

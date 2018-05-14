@@ -1,11 +1,44 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+
+import {
+    selectBtc,
+    selectEth,
+    fetchBtcRequest,
+    fetchEthRequest,
+    getOffset,
+    selectOffset
+} from '../../ducks/currency';
+import { fetchWalletRequest, getWalletData } from '../../ducks/wallet';
+import { getUserInfoRequest, getUserInfo } from '../../ducks/user';
 //  Logo
 import logo from '../../assets/img/Logo.svg';
 
-export default class Trade extends Component {
+const offsets = {
+    '2h': '2ч',
+    '4h': '4ч',
+    '8h': '8ч',
+    '1d': '1д',
+    '7d': '7д'
+};
 
-    handleChange = () => {
-        console.log('change')
+class Trade extends PureComponent {
+
+    state = {
+        inputFiat: 1,
+        inputSell: 10,
+        inputBuy: 20,
+        currentInput: 'inputFiat'
+    };
+
+    handleChange = event => {
+        const { name, value } = event.target;
+
+        if (isNaN(event.target.value) || event.target.value === '') {
+            this.setState(state => ({[name]: 1}));
+        } else {
+            this.setState(state => ({[name]: value}));
+        }
     };
 
     handleBuy = () => {
@@ -16,7 +49,17 @@ export default class Trade extends Component {
 
     };
 
+    componentDidMount() {
+        this.props.getUserInfoRequest();
+        this.props.fetchWalletRequest();
+        this.props.fetchBtcRequest('4h');
+        this.props.fetchEthRequest('4h');
+    };
+
     render() {
+        const { inputFiat, inputSell, inputBuy } = this.state;
+        const { wallet } = this.props;
+
         return (
             <div>
                 <header className="header">
@@ -57,15 +100,15 @@ export default class Trade extends Component {
                                 <h2 className="medium-title">Ваш счет</h2>
                                 <div className="score">
                                     <div className="score__row">
-                                        <div className="score__item"><span>12.</span>12332</div>
+                                        <div className="score__item">{wallet.eth}</div>
                                         <div className="score__name">ETH</div>
                                     </div>
                                     <div className="score__row">
-                                        <div className="score__item"><span>1.</span>234032</div>
+                                        <div className="score__item">{wallet.btc}</div>
                                         <div className="score__name">BTC</div>
                                     </div>
                                     <div className="score__row">
-                                        <div className="score__item"><span>1 123.</span>00</div>
+                                        <div className="score__item">{wallet.usd}</div>
                                         <div className="score__name">$</div>
                                     </div>
                                 </div>
@@ -74,16 +117,18 @@ export default class Trade extends Component {
                                     <div className="score__row">
                                         <input 
                                             className="score__item score__item--small score__item--btc"
-                                            type="text" 
-                                            value="0.2"
+                                            type="text"
+                                            name="inputFiat"
+                                            value={inputFiat}
                                             onChange={this.handleChange}
                                         />
                                     </div>
                                     <div className="score__row">
                                         <input 
                                             className="score__item score__item--small score__item--usd" 
-                                            type="text" 
-                                            value="55.43"
+                                            type="text"
+                                            name="inputBuy" 
+                                            value={inputBuy}
                                             onChange={this.handleChange}
                                         />
                                         <button 
@@ -96,8 +141,9 @@ export default class Trade extends Component {
                                     <div className="score__row">
                                         <input 
                                             className="score__item score__item--small score__item--usd"
-                                            type="text" 
-                                            value="55.12" 
+                                            type="text"
+                                            name="inputSell" 
+                                            value={inputSell}
                                             onChange={this.handleChange}
                                         />
                                         <button 
@@ -135,4 +181,22 @@ export default class Trade extends Component {
             </div>
         )
     }
+}
+
+const mapStateToProps = state => ({
+    userInfo: getUserInfo(state),
+    wallet: getWalletData(state)
+});
+
+const mapDispatchToProps = {
+    fetchBtcRequest,
+    fetchEthRequest,
+    fetchWalletRequest,
+    getUserInfoRequest,
+    getUserInfo
 };
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Trade);
