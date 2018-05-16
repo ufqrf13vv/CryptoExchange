@@ -98,3 +98,10 @@ export { fetchBtcRequest,
     getOffset,
     selectOffset
 };
+
+export const sellBtc = state => state.currency.btc.map(item => [new Date(item.mts), item.sell]);
+export const purchaseBtc = state => state.currency.btc.map(item => [new Date(item.mts), item.purchase]);
+export const sellEth = state => state.currency.eth.map(item => [new Date(item.mts), item.sell]);
+export const purchaseEth = state => state.currency.eth.map(item => [new Date(item.mts), item.purchase]);
+export const getOffsetCurrency = state => state.currency.offset;
+export const getSelectedCurrency = state => state.currency.selected;

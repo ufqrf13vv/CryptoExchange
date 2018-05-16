@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+//  Components
+import Chart from '../Chart';
 
 import {
     selectBtc,
@@ -7,7 +10,11 @@ import {
     fetchBtcRequest,
     fetchEthRequest,
     getOffset,
-    selectOffset
+    selectOffset,
+    sellBtc,
+    sellEth,
+    purchaseBtc,
+    purchaseEth
 } from '../../ducks/currency';
 import { fetchWalletRequest, getWalletData } from '../../ducks/wallet';
 import { getUserInfoRequest, getUserInfo } from '../../ducks/user';
@@ -59,6 +66,7 @@ class Trade extends PureComponent {
     render() {
         const { inputFiat, inputSell, inputBuy } = this.state;
         const { wallet } = this.props;
+        const { sellBtc, sellEth, purchaseBtc, purchaseEth } = this.props;
 
         return (
             <div>
@@ -115,7 +123,7 @@ class Trade extends PureComponent {
                                 <h2 className="medium-title">Покупка/продажа</h2>
                                 <div className="score">
                                     <div className="score__row">
-                                        <input 
+                                        <input
                                             className="score__item score__item--small score__item--btc"
                                             type="text"
                                             name="inputFiat"
@@ -124,32 +132,32 @@ class Trade extends PureComponent {
                                         />
                                     </div>
                                     <div className="score__row">
-                                        <input 
-                                            className="score__item score__item--small score__item--usd" 
+                                        <input
+                                            className="score__item score__item--small score__item--usd"
                                             type="text"
-                                            name="inputBuy" 
+                                            name="inputBuy"
                                             value={inputBuy}
                                             onChange={this.handleChange}
                                         />
-                                        <button 
+                                        <button
                                             className="button button--red"
                                             onClick={this.handleBuy}
-                                            >
+                                        >
                                             Купить
                                         </button>
                                     </div>
                                     <div className="score__row">
-                                        <input 
+                                        <input
                                             className="score__item score__item--small score__item--usd"
                                             type="text"
-                                            name="inputSell" 
+                                            name="inputSell"
                                             value={inputSell}
                                             onChange={this.handleChange}
                                         />
-                                        <button 
+                                        <button
                                             className="button button--blue"
                                             onClick={this.handleSell}
-                                            >
+                                        >
                                             Продать
                                         </button>
                                     </div>
@@ -157,19 +165,17 @@ class Trade extends PureComponent {
                             </div>
                             <div className="content__statistics">
                                 <h2 className="medium-title">Окно графика</h2>
-                                <div className="statistics__image">
-                                    <img src="/assets/img/graph.jpg" alt=""/>
-                                </div>
+                                <Chart />
                                 <h2 className="medium-title">История операций</h2>
                                 <div className="statistics__history">
                                     <table className="statistics__table">
                                         <tbody>
-                                            <tr className="statistics__tr">
-                                                <th className="statistics__th">Операция</th>
-                                                <th className="statistics__th">Дата</th>
-                                                <th className="statistics__th">BTC</th>
-                                                <th className="statistics__th">USD</th>
-                                            </tr>
+                                        <tr className="statistics__tr">
+                                            <th className="statistics__th">Операция</th>
+                                            <th className="statistics__th">Дата</th>
+                                            <th className="statistics__th">BTC</th>
+                                            <th className="statistics__th">USD</th>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <div className="statistics__footer"></div>
@@ -185,7 +191,11 @@ class Trade extends PureComponent {
 
 const mapStateToProps = state => ({
     userInfo: getUserInfo(state),
-    wallet: getWalletData(state)
+    wallet: getWalletData(state),
+    sellBtc: sellBtc(state),
+    sellEth: sellEth(state),
+    purchaseBtc: purchaseBtc(state),
+    purchaseEth: purchaseEth(state)
 });
 
 const mapDispatchToProps = {
