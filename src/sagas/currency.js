@@ -15,7 +15,7 @@ import {
 } from '../ducks/currency';
 import {candles, getWallet} from '../helpers/api';
 import {fetchWalletRequest, fetchWalletSuccess, fetchWalletFailure} from '../ducks/wallet';
-import {changeLocation} from '../ducks/location';
+//import {changeLocation} from '../ducks/location';
 
 function* fetchBtcFlow(action) {
     try {
@@ -52,7 +52,7 @@ export function* currencyWatch() {
     let currencyTask;
 
     while (true) {
-        const action = yield take([getIsAuthorize, logout, selectBtc, selectEth, selectOffset, changeLocation]);
+        const action = yield take([getIsAuthorize, logout, selectBtc, selectEth, selectOffset]);
 
         if (currencyTask) {
             yield cancel(currencyTask);

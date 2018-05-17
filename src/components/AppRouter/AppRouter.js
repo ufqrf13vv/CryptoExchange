@@ -5,7 +5,7 @@ import { getIsAuthorize } from '../../ducks/auth';
 //  Components
 import PrivateRoute from '../PrivateRoute';
 import Login from '../Login';
-import Trade from '../Trade';
+import TradePage from '../Pages/TradePage';
 
 class AppRouter extends Component {
 
@@ -14,7 +14,7 @@ class AppRouter extends Component {
 
         return (
             <Switch>
-                <PrivateRoute path="/trade/:currency" component={Trade} />
+                <PrivateRoute path="/trade/:currency" component={TradePage} />
                 {isAuthorized && <Redirect to="/trade/btc" />}
                 <Route path="/" component={Login} />
             </Switch>

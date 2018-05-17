@@ -39,3 +39,7 @@ export default handleActions(
 )
 
 export { fetchUserTransactionsRequest, fetchUserTransactionsSuccess, fetchUserTransactionsFailure };
+
+export const getUserTransactions = state => state.transactions.transactions;
+export const userTransactionsIsLoading = state => state.transactions.isLoading;
+export const getUserTransactionsError = state => state.transactions.error;
