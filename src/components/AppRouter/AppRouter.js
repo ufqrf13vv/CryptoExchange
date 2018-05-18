@@ -7,7 +7,7 @@ import PrivateRoute from '../PrivateRoute';
 import Login from '../Login';
 import TradePage from '../Pages/TradePage';
 
-class AppRouter extends Component {
+export class AppRouter extends Component {
 
     render() {
         const { isAuthorized } = this.props;

@@ -9,7 +9,6 @@ const {
     fetchEthFailure,
     selectBtc,
     selectEth,
-    getOffset,
     selectOffset
     } = createActions(
     'FETCH_BTC_REQUEST',
@@ -20,7 +19,6 @@ const {
     'FETCH_ETH_FAILURE',
     'SELECT_BTC',
     'SELECT_ETH',
-    'GET_OFFSET',
     'SELECT_OFFSET'
 );
 
@@ -91,12 +89,13 @@ export {
     fetchBtcRequest,
     fetchBtcSuccess,
     fetchBtcFailure,
+
     fetchEthRequest,
     fetchEthSuccess,
     fetchEthFailure,
+
     selectBtc,
     selectEth,
-    getOffset,
     selectOffset
 };
 

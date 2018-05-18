@@ -82,9 +82,11 @@ export {
     fetchWalletRequest,
     fetchWalletSuccess,
     fetchWalletFailure,
+
     buyCurrencyRequest,
     buyCurrencySuccess,
     buyCurrencyFailure,
+
     sellCurrencyRequest,
     sellCurrencySuccess,
     sellCurrencyFailure

@@ -11,6 +11,7 @@ import particlesParams from '../../assets/js/particles-params';
 import logo from '../../assets/img/Logo.svg';
 //  Components
 import Input from './Input';
+import Error from '../Error';
 
 const formValidation = values => {
     //const errors = {};
@@ -31,17 +32,16 @@ const formValidation = values => {
     //}
 };
 
-class Login extends Component {
+export class Login extends Component {
 
     state = {
         action: 'login'
     };
 
     handleClick = event => {
-        event.preventDefault();
-
         const action = this.state.action === 'login' ? 'registration' : 'login';
 
+        event.preventDefault();
         this.setState({ action: action});
     };
 
@@ -57,6 +57,7 @@ class Login extends Component {
 
     render() {
         const { action } = this.state;
+        const { loginError, regError } = this.props;
 
         return (
             <div className="main">
@@ -92,6 +93,11 @@ class Login extends Component {
                                         type="password"
                                     />
                                 </div>
+                                {action === 'login' && loginError ? (
+                                    <Error isError="true" errorText={loginError} />
+                                ):(
+                                    <Error isError="true" errorText={regError} />
+                                )}
                                 <button className="submit" type="submit">
                                     {action === 'login' ? 'Войти' : 'Зарегистрироваться'}
                                 </button>

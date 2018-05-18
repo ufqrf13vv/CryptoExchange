@@ -27,7 +27,7 @@ const offsets = {
     '7d': '7д'
 };
 
-class Chart extends Component {
+export class Chart extends Component {
 
     componentDidMount() {
         this.props.fetchBtcRequest('4h');
@@ -50,7 +50,11 @@ class Chart extends Component {
     offsetButtons = offset => {
         return Object.keys(offsets).map(item => (
             <button
-                className={offset === item ? 'statistics__chart-btn statistics__chart-btn--active' : 'statistics__chart-btn'}
+                className={
+                offset === item ?
+                'statistics__chart-btn statistics__chart-btn--active' :
+                'statistics__chart-btn'
+                }
                 onClick={this.handleClick}
                 key={ item }
                 data-offset={ item } >
@@ -68,8 +72,9 @@ class Chart extends Component {
                 <div className="statistics__chart-header">
                     { this.offsetButtons(offset) }
                 </div>
-                {btcIsLoading || ethIsLoading ?
-                    (<Loader isLoading="true"/>) : (
+                {btcIsLoading || ethIsLoading ? (
+                    <Loader isLoading="true"/>
+                ) : (
                     <Fragment>
                         {selectedCurrency === 'btc' ? (
                             <LineChart

@@ -4,9 +4,9 @@ import { getUserTransactions } from '../helpers/api';
 
 export function* transactionsFlow() {
     try {
-        const userInfo = yield call(getUserTransactions);
+        const transactions = yield call(getUserTransactions);
 
-        yield put(fetchUserTransactionsSuccess(userInfo.data.result));
+        yield put(fetchUserTransactionsSuccess(transactions.data.result));
     } catch (error) {
         yield put(fetchUserTransactionsFailure(error));
     }

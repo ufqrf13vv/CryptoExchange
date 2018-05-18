@@ -3,7 +3,7 @@ import authWatch from './auth';
 import registerWatch from './registration';
 import userWatch from './user';
 import transactionsWatch from './transactions';
-import { fetchWalletWatch, fetchBtcWatch, fetchEthWatch, currencyWatch } from './currency';
+import { fetchWalletWatch, fetchBtcWatch, fetchEthWatch } from './currency';
 import { sellWatch, buyWatch } from './buy&sell';
 
 export default function*() {
@@ -16,5 +16,4 @@ export default function*() {
     yield fork(fetchEthWatch);
     yield fork(buyWatch);
     yield fork(sellWatch);
-    //yield fork(currencyWatch);
 }
