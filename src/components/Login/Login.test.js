@@ -1,40 +1,68 @@
 import React, { Component } from 'react';
 import Input from './Input';
 import { Login } from './Login';
-import { shallow } from 'enzyme';
+import { shallow, render } from 'enzyme';
 
 describe('Компонент Login', () => {
-    const wrapper = shallow(<Login />);
+    const shallowWrapper = shallow(<Login />);
+    const renderWrapper = render(<Login />);
 
     describe('Верстка', () => {
         it('Главное окно формы регистрации/авторизации', () => {
-            const mainLogin = wrapper.find('.main__login');
+            const mainLogin = renderWrapper.find('.main__login');
 
             expect(mainLogin).toHaveLength(1);
         });
 
-        it('Login пользователя', () => {
-            const modal = wrapper.find('.modal');
+        it('ReactFinalForm пристутствует', () => {
+            const modal = shallowWrapper.find('ReactFinalForm');
 
-            //expect(modal).toHaveLength(1);
+            expect(modal).toHaveLength(1);
         });
 
-        it('Количество фаловеров пользователя', () => {
-            const loginElement = wrapper.find('.app-user__followers');
+        it('Инпут для ввода логина(email)', () => {
+            const email = renderWrapper.find('input[name="email"]');
 
-            //expect(loginElement).toHaveLength(1);
+            expect(email).toHaveLength(1);
         });
 
-        it('Должен присутствовать компонент Followers', () => {
-            //expect(wrapper.find('Connect(Followers)')).toHaveLength(1);
+        it('Инпут для ввода пароля(password)', () => {
+            const password = renderWrapper.find('input[name="password"]');
+
+            expect(password).toHaveLength(1);
         });
 
-        it('У компонента Followers должен быть атрибут login с передачей значения через props', () => {
-            const login = 'user';
-            //wrapper.setProps({ user: { login: login } });
-            //const loginProp = wrapper.find('Connect(Followers)').prop('login');
+        it('Кнопка отправки данных(submit)', () => {
+            const submit = renderWrapper.find('button[type="submit"]');
 
-            //expect(loginProp).toBe(login);
+            expect(submit).toHaveLength(1);
         });
-    })
+    });
+
+    describe('Методы', () => {
+        it('handleClick', () => {
+            expect(shallowWrapper.instance().handleClick).toBeDefined();
+        });
+
+        it('handleSubmit', () => {
+            expect(shallowWrapper.instance().handleSubmit).toBeDefined();
+        });
+    });
+
+    describe('Состояние', () => {
+        it('State содержит поле action', () => {
+            expect(shallowWrapper.state().action).toBeDefined();
+        });
+
+        it('State.action по-умолчанию = login', () => {
+            expect(shallowWrapper.state().action).toEqual('login');
+        });
+
+        it('Если state.isModalShow = true показывает компонент Modal', () => {
+            shallowWrapper.setState({action: 'login'});
+            shallowWrapper.update();
+            console.log(shallowWrapper.html())
+            expect(shallowWrapper.find('.main__footer').contains(<a class="link" href="">Регистрация</a>)).toEqual(false);
+        });
+    });
 });
