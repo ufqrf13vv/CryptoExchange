@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
 import { selectBtc, selectEth, getCurrentBtcSell, getCurrentEthSell } from '../../../ducks/currency';
 import { getUserInfoRequest, getUserInfo } from '../../../ducks/user';
 
-//  Logo
 import logo from '../../../assets/img/Logo-white.svg';
 
-class Header extends Component {
+class Header extends PureComponent {
 
     componentDidMount() {
         const choosenCurrency = this.props.match.params.currency;
@@ -17,6 +16,10 @@ class Header extends Component {
         this.props.getUserInfoRequest();
     }
 
+    /**
+     * 
+     * Choose new currency to display
+     */
     componentWillReceiveProps(nextProps) {
         const currentValue = this.props.match.params.currency;
         const nextValue = nextProps.match.params.currency;
@@ -36,16 +39,16 @@ class Header extends Component {
 
     render() {
         const currency = this.props.match.params.currency;
-        const { userInfo, currentBtcSell, currentEthSell } = this.props;
+        const { userInfo, currentBtcSell, currentEthSell, title } = this.props;
 
         return (
             <header className="header">
                 <div className="container">
                     <div className="header__wrapper">
-                        <a className="logo" href="/">
+                        <div className="logo">
                             <img src={logo} alt="logo"/>
-                        </a>
-                        <div className="header__name">Торги</div>
+                        </div>
+                        <div className="header__name">{title}</div>
                         <div className="currencies">
                             <Link
                                 className={currency === 'btc' ?
@@ -68,13 +71,10 @@ class Header extends Component {
                         </div>
                         <ul className="main-menu">
                             <li className="main-menu__item main-menu__item--tape">
-                                <a className="main-menu__link" href="">Лента</a><span>1+</span>
+                                <Link className="main-menu__link" to="/feed">Лента</Link>
                             </li>
                             <li className="main-menu__item">
-                                <a className="main-menu__link" href="">3 место</a>
-                            </li>
-                            <li className="main-menu__item">
-                                <a className="main-menu__link main-menu__link--user" href="">{userInfo.email}</a>
+                                <Link className="main-menu__link main-menu__link--user" to="/profile">{userInfo.email}</Link>
                             </li>
                         </ul>
                     </div>

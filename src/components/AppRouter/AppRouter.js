@@ -1,33 +1,22 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { getIsAuthorize } from '../../ducks/auth';
-//  Components
+import { Route, Switch } from 'react-router-dom';
+
 import PrivateRoute from '../PrivateRoute';
 import Login from '../Login';
 import TradePage from '../Pages/TradePage';
+import FeedPage from '../Pages/FeedPage';
+import ProfilePage from '../Pages/ProfilePage';
 
-export class AppRouter extends Component {
+export default class AppRouter extends Component {
 
     render() {
-        const { isAuthorized } = this.props;
-
         return (
             <Switch>
-                <PrivateRoute path="/trade/:currency" component={TradePage} />
-                {isAuthorized && <Redirect to="/trade/btc" />}
-                <Route path="/" component={Login} />
+                <PrivateRoute path="/trade/:currency" exact component={TradePage} />
+                <PrivateRoute path="/profile" exact component={ProfilePage} />
+                <PrivateRoute path="/feed" exact component={FeedPage} />
+                <Route path="/" exact component={Login} />
             </Switch>
         );
     }
 }
-
-const mapStateToProps = state => ({
-    isAuthorized: getIsAuthorize(state)
-});
-
-const mapDispatchToProps = { };
-
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(AppRouter)
-);

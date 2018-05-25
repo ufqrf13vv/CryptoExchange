@@ -11,6 +11,9 @@ class Transactions extends Component {
         this.props.fetchUserTransactionsRequest();
     }
 
+    /**
+     * Display table with all user transactions
+     */
     renderTable = (transactions, currency) => {
         return transactions.map(item => {
             if (currency === 'btc') {

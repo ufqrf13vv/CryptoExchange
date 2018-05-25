@@ -50,7 +50,6 @@ export default handleActions(
 
         [fetchBtcRequest]: (state, action) => ({
             ...state,
-            btc: [],
             isBtcLoading: true
         }),
 
@@ -67,7 +66,6 @@ export default handleActions(
 
         [fetchEthRequest]: (state, action) => ({
             ...state,
-            eth: [],
             isEthLoading: true
         }),
 

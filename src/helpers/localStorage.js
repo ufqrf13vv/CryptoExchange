@@ -1,11 +1,11 @@
-export function getTokenFromLocalStorage() {
+export const getTokenFromLocalStorage = () => {
     return localStorage.getItem('jwt_token');
 }
 
-export function setTokenToLocalStorage(token) {
+export const setTokenToLocalStorage = token => {
     localStorage.setItem('jwt_token', token);
 }
 
-export function removeTokenFromLocalStorage() {
+export const removeTokenFromLocalStorage = () => {
     localStorage.removeItem('jwt_token');
 }

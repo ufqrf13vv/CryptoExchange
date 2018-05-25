@@ -30,6 +30,9 @@ class Trade extends PureComponent {
         this.changeInputs(currentInput, sell, buy);
     }
 
+    /**
+     * Change input state
+     */
     onInputChange = event => {
         const { name, value } = event.target;
         const { sell, buy } = this.props;
@@ -50,6 +53,9 @@ class Trade extends PureComponent {
         this.setState({ currentInput: 'inputFiat' });
     };
 
+    /**
+     * Buy chosen currency
+     */
     handleBuy = () => {
         const { currencyName } = this.props;
         const { inputFiat } = this.state;
@@ -57,6 +63,9 @@ class Trade extends PureComponent {
         this.props.buyCurrencyRequest({ currencyName, value: inputFiat });
     };
 
+    /**
+     * Sell chosen currency
+     */
     handleSell = () => {
         const { currencyName } = this.props;
         const { inputFiat } = this.state;
@@ -64,6 +73,12 @@ class Trade extends PureComponent {
         this.props.sellCurrencyRequest({ currencyName, value: inputFiat });
     };
 
+    /**
+     * Change value in the selected input
+     * @param {string} name 
+     * @param {number} sell 
+     * @param {number} buy 
+     */
     changeInputs(name, sell, buy) {
         switch (name) {
             case 'inputFiat': {

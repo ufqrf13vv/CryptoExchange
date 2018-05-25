@@ -34,6 +34,9 @@ export class Chart extends Component {
         this.props.fetchEthRequest('4h');
     };
 
+    /**
+    *   Choose new currency offset 
+    */
     handleClick = event => {
         const { offset } = event.target.dataset;
         const { selectedCurrency } = this.props;
@@ -47,6 +50,9 @@ export class Chart extends Component {
         }
     };
 
+    /**
+    *   Offset buttons 
+    */
     offsetButtons = offset => {
         return Object.keys(offsets).map(item => (
             <button
@@ -57,7 +63,7 @@ export class Chart extends Component {
                 }
                 onClick={this.handleClick}
                 key={ item }
-                data-offset={ item } >
+                data-offset={ item }>
                 {offsets[item]}
             </button>
         ));
@@ -70,6 +76,10 @@ export class Chart extends Component {
         return (
             <div className="statistics__chart">
                 <div className="statistics__chart-header">
+                    <div className="statistics__chart-legend">
+                        <div className="statistics__chart-name">Покупка</div>
+                        <div className="statistics__chart-name statistics__chart-name--sell">Продажа</div>
+                    </div>
                     { this.offsetButtons(offset) }
                 </div>
                 {btcIsLoading || ethIsLoading ? (
@@ -82,20 +92,20 @@ export class Chart extends Component {
                                 axes
                                 grid
                                 verticalGrid
-                                interpolate={'cardinal'}
                                 xType={'time'}
                                 datePattern={'%d-%m %H:%M'}
                                 width={750}
                                 height={400}
+                                xtitle="Time" ytitle="Population"
                                 style={{
-                                '.axis path': {
-                                    stroke: '#EDF0F1'
-                                }
-                            }}
+                                    '.axis path': {
+                                        stroke: '#EDF0F1'
+                                    }
+                                }}
                                 data={[
-                                sellBtc.map(([date, value]) => ({x: moment(date).format('DD-MM HH:mm'), y: value})),
-                                purchaseBtc.map(([date, value]) => ({x: moment(date).format('DD-MM HH:mm'), y: value}))
-                            ]}
+                                    sellBtc.map(([date, value]) => ({x: moment(date).format('DD-MM HH:mm'), y: value})),
+                                    purchaseBtc.map(([date, value]) => ({x: moment(date).format('DD-MM HH:mm'), y: value}))
+                                ]}
                             />
                         ) : (
                             <LineChart
@@ -103,20 +113,20 @@ export class Chart extends Component {
                                 axes
                                 grid
                                 verticalGrid
-                                interpolate={'cardinal'}
                                 xType={'time'}
                                 datePattern={'%d-%m %H:%M'}
                                 width={750}
                                 height={400}
+                                xtitle="Time" ytitle="Population"
                                 style={{
-                                '.axis path': {
-                                    stroke: '#EDF0F1'
-                                }
-                            }}
+                                    '.axis path': {
+                                        stroke: '#EDF0F1'
+                                    }
+                                }}
                                 data={[
-                                sellEth.map(([date, value]) => ({x: moment(date).format('DD-MM HH:mm'), y: value})),
-                                purchaseEth.map(([date, value]) => ({x: moment(date).format('DD-MM HH:mm'), y: value}))
-                            ]}
+                                    sellEth.map(([date, value]) => ({x: moment(date).format('DD-MM HH:mm'), y: value})),
+                                    purchaseEth.map(([date, value]) => ({x: moment(date).format('DD-MM HH:mm'), y: value}))
+                                ]}
                             />
                         )}
                     </Fragment>
