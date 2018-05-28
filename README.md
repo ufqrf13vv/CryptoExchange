@@ -1,6 +1,6 @@
-##CryptoExchange
+## CryptoExchange
 
-#####Crypto exchange project where you can trade etheriums and bitcoins.
+##### Crypto exchange project where you can trade etheriums and bitcoins.
 1. Authorization/ registration form with jwt token
 2. Personal cabinet where you can see:
     * currency value chart;
@@ -11,7 +11,7 @@
 4. Places where you can see transactions of other people
 5. Feed
 ***
-###Start propject
+### Start propject
 ```
 1. npm install
 2. npm run start
