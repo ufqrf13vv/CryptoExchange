@@ -1,23 +1,25 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { getUserInfo, getUserActivityRequest, getUserActivity } from '../../../ducks/user';
+import { getUserInfo, getUserActivityRequest, getUserActivity, getError } from '../../../ducks/user';
+import { getWalletBalance } from '../../../ducks/wallet';
 
 import Header from '../../Layout/Header';
 import Footer from '../../Layout/Footer';
 import Error from '../../Error';
 import Wallet from '../../Wallet';
+import Feed from '../FeedPage/Feed';
 
-export class Profile extends PureComponent {
+export class ProfilePage extends PureComponent {
 
     componentDidMount() {
         const { userInfo } = this.props;
 
-        this.props.getUserActivityRequest(userInfo.id);
+        //this.props.getUserActivityRequest(userInfo.id);
     }
 
     render() {
-        const { userInfo } = this.props;
+        const { userInfo, balance, error } = this.props;
 
         return (
             <main className="main-wrapper">
@@ -36,18 +38,18 @@ export class Profile extends PureComponent {
                             <h2 className="medium-title">Ваш счет</h2>
                             <Wallet />
                             <h3 className="medium-title">Сумма накоплений</h3>
-                            <div className="profile__sum">1000 $</div>
+                            <div className="profile__sum">~{balance} $</div>
                         </div>
                         </div>
                         <h2 className="medium-title">Ваша последняя активность</h2>
                         <div className="feed">
-                        <div className="feed__item">
-                            <div className="feed__item-header">
-                                <div className="feed__item-name">Name</div>
-                                <div className="feed__item-date">01.01.2018</div>
+                            <div className="feed__item">
+                                <div className="feed__item-header">
+                                    <div className="feed__item-name">Name</div>
+                                    <div className="feed__item-date">01.01.2018</div>
+                                </div>
+                                <div className="feed__item-text feed__item-text--sell">Купил 0.3 BTC за 199$</div>
                             </div>
-                            <div className="feed__item-text feed__item-text--sell">Купил 0.3 BTC за 199$</div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -59,7 +61,9 @@ export class Profile extends PureComponent {
 
 const mapStateToProps = state => ({
     userInfo: getUserInfo(state),
-    userActivity: getUserActivity(state)
+    userActivity: getUserActivity(state),
+    balance: getWalletBalance(state),
+    error: getError(state)
 });
 
 const mapDispatchToProps = { getUserActivityRequest };
@@ -67,4 +71,4 @@ const mapDispatchToProps = { getUserActivityRequest };
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Profile);
+)(ProfilePage);

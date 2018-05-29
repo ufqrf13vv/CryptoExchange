@@ -29,11 +29,6 @@ const offsets = {
 
 export class Chart extends Component {
 
-    componentDidMount() {
-        this.props.fetchBtcRequest('4h');
-        this.props.fetchEthRequest('4h');
-    };
-
     /**
     *   Choose new currency offset 
     */

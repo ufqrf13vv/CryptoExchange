@@ -4,6 +4,7 @@ import {
     getUserInfoRequest, 
     getUserInfoSuccess, 
     getUserInfoFailure,
+
     getUserActivityRequest,
     getUserActivitySuccess,
     getUserActivityFailure 
@@ -22,7 +23,6 @@ export function* userFlow() {
 }
 
 export function* userActivityFlow(action) {
-    console.log(action)
     try {
         const userActivity = yield call(getUserFeedById, action.payload);
 

@@ -94,3 +94,4 @@ export {
 
 export const getWalletData = state => state.wallet.coins;
 export const getError = state => state.wallet.error;
+export const getWalletBalance = state => state.wallet.coins.usd;

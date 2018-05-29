@@ -73,3 +73,4 @@ export {
 
 export const getUserInfo = state => state.user.info;
 export const getUserActivity = state => state.user.activity;
+export const getError = state => state.user.error;

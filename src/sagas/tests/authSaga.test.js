@@ -46,7 +46,7 @@ describe('Авторизация пользователя', () => {
             expect(authSaga.next().value).toEqual(take(authRequest));
         });
 
-        it('4) Вызов action authRequest - авторизация пользователя', () => {
+        it('4) Отправка запроса на бэк с данными пользователя', () => {
             const action = {
                 payload: {
                     email: 'mail@mail.ru',
@@ -85,14 +85,31 @@ describe('Авторизация пользователя', () => {
             expect(authSaga.next().value).toEqual(call(getTokenFromLocalStorage));
         });
 
-        it('3) Action authFailure - ошибка авторизации', () => {
-            const error = new Error({
-                data: {
-                    message: 'error'
-                }
-            });
+        it('3) Вызов action authRequest - авторизация пользователя', () => {
+            expect(authSaga.next().value).toEqual(take(authRequest));
+        });
 
-            //expect(authSaga.throw().value).toEqual(put(authFailure(error)));
+        it('4) Отправка запроса на бэк с данными пользователя', () => {
+            const action = {
+                payload: {
+                    email: 'mail@mail.ru',
+                    password: 'password'
+                }
+            };
+
+            expect(authSaga.next(action).value).toEqual(call(login, action.payload));
+        });
+
+        it('5) Action authFailure - ошибка авторизации', () => {
+            const error = new Error({
+                //data: {
+                    message: 'error'
+                //}
+            });
+            //authSaga.next();
+            console.log(authSaga.throw(error).value)
+
+            //expect(authSaga.throw(error).value).toEqual(put(authFailure(error.data.message)));
         });
     })
 });

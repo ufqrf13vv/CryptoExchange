@@ -58,10 +58,10 @@ describe('Компонент Login', () => {
             expect(shallowWrapper.state().action).toEqual('login');
         });
 
-        it('Если state.isModalShow = true показывает компонент Modal', () => {
-            shallowWrapper.setState({action: 'login'});
+        it('Регистрация (state = registration)', () => {
+            shallowWrapper.setState({action: 'registration'});
             shallowWrapper.update();
-            console.log(shallowWrapper.html())
+
             expect(shallowWrapper.find('.main__footer').contains(<a class="link" href="">Регистрация</a>)).toEqual(false);
         });
     });

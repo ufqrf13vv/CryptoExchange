@@ -12,10 +12,10 @@ export default class AppRouter extends Component {
     render() {
         return (
             <Switch>
-                <PrivateRoute path="/trade/:currency" exact component={TradePage} />
-                <PrivateRoute path="/profile" exact component={ProfilePage} />
-                <PrivateRoute path="/feed" exact component={FeedPage} />
-                <Route path="/" exact component={Login} />
+                <PrivateRoute path="/trade/:currency" exact component={TradePage}/>
+                <PrivateRoute path="/profile" exact component={ProfilePage}/>
+                <PrivateRoute path="/feed" exact component={FeedPage}/>
+                <Route path="/" exact component={Login}/>
             </Switch>
         );
     }

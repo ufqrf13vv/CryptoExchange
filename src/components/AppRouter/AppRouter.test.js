@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect, MemoryRouter } from 'react-router-dom';
-import { AppRouter } from './AppRouter';
+import AppRouter from './AppRouter';
 import PrivateRoute from '../PrivateRoute';
 import { shallow } from 'enzyme';
 
@@ -15,9 +15,25 @@ describe('Компонент AppRouter', () => {
         expect(wrapper.find(PrivateRoute).length).toBeGreaterThanOrEqual(1);
     });
 
-    it('Наличие компонента <PrivateRoute path="/trade/:currency" />', () => {
+    it('Переход на страницу "Торги"', () => {
         const findRoute = wrapper.findWhere(
             el => el.type() === PrivateRoute && el.prop('path') === '/trade/:currency'
+        );
+
+        expect(findRoute).toHaveLength(1);
+    });
+
+    it('Переход на страницу "Лента"', () => {
+        const findRoute = wrapper.findWhere(
+            el => el.type() === PrivateRoute && el.prop('path') === '/feed'
+        );
+
+        expect(findRoute).toHaveLength(1);
+    });
+
+    it('Переход на страницу "Профиль"', () => {
+        const findRoute = wrapper.findWhere(
+            el => el.type() === PrivateRoute && el.prop('path') === '/profile'
         );
 
         expect(findRoute).toHaveLength(1);
@@ -33,14 +49,5 @@ describe('Компонент AppRouter', () => {
         );
 
         expect(findRoutes).toHaveLength(1);
-    });
-
-    it('Редирект на /trade/btc если пользователь авторизован (props.isAuthorized === true)', () => {
-        wrapper.setProps({ isAuthorized: true });
-        const findRedirects = wrapper.findWhere(
-            el => el.type() === Redirect && el.prop('to') === '/trade/btc'
-        );
-
-        expect(findRedirects).toHaveLength(1);
     });
 });

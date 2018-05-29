@@ -172,7 +172,7 @@ class Trade extends PureComponent {
                         Продать
                     </button>
                 </div>
-                {error && <Error isError="true" errorText="Ошибка!!!" />}
+                {error && <Error isError errorText="Ошибка!!!" />}
             </div>
         )
     }

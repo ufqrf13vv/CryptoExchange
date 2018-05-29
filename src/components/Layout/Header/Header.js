@@ -3,21 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
 import { selectBtc, selectEth, getCurrentBtcSell, getCurrentEthSell } from '../../../ducks/currency';
-import { getUserInfoRequest, getUserInfo } from '../../../ducks/user';
+import { getUserInfo } from '../../../ducks/user';
 
 import logo from '../../../assets/img/Logo-white.svg';
 
 class Header extends PureComponent {
-
-    componentDidMount() {
-        const choosenCurrency = this.props.match.params.currency;
-
-        this.chooseCurrency(choosenCurrency);
-        this.props.getUserInfoRequest();
-    }
-
     /**
-     * 
      * Choose new currency to display
      */
     componentWillReceiveProps(nextProps) {
@@ -25,17 +16,13 @@ class Header extends PureComponent {
         const nextValue = nextProps.match.params.currency;
 
         if (currentValue && currentValue !== nextValue) {
-            this.chooseCurrency(nextValue);
+            if (nextValue === 'btc') {
+                this.props.selectBtc();
+            } else {
+                this.props.selectEth();
+            }
         }
     }
-
-    chooseCurrency = currency => {
-        if (currency === 'btc') {
-            this.props.selectBtc();
-        } else {
-            this.props.selectEth();
-        }
-    };
 
     render() {
         const currency = this.props.match.params.currency;
@@ -74,7 +61,7 @@ class Header extends PureComponent {
                                 <Link className="main-menu__link" to="/feed">Лента</Link>
                             </li>
                             <li className="main-menu__item">
-                                <Link className="main-menu__link main-menu__link--user" to="/profile">{userInfo.email}</Link>
+                                <Link className="main-menu__link main-menu__link--user" to="/profile">{userInfo ? userInfo.email : ''}</Link>
                             </li>
                         </ul>
                     </div>
@@ -92,10 +79,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     selectBtc,
-    selectEth,
-    getUserInfoRequest
+    selectEth
 };
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(Header)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
