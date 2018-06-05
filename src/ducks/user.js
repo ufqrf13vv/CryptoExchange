@@ -19,7 +19,7 @@ const {
 const initialState = {
     info: {},
     isLoading: false,
-    activity: {},
+    activity: [],
     error: null
 };
 

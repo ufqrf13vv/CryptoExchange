@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { getUserInfo, getUserActivityRequest, getUserActivity, getError } from '../../../ducks/user';
+import { getUserInfo, getUserActivityRequest, getUserActivity } from '../../../ducks/user';
 import { getWalletBalance } from '../../../ducks/wallet';
 
 import Header from '../../Layout/Header';
 import Footer from '../../Layout/Footer';
-import Error from '../../Error';
 import Wallet from '../../Wallet';
 import Feed from '../FeedPage/Feed';
 
@@ -15,11 +14,11 @@ export class ProfilePage extends PureComponent {
     componentDidMount() {
         const { userInfo } = this.props;
 
-        //this.props.getUserActivityRequest(userInfo.id);
+        if (userInfo) this.props.getUserActivityRequest(userInfo.id);
     }
 
     render() {
-        const { userInfo, balance, error } = this.props;
+        const { userInfo, balance, userActivity } = this.props;
 
         return (
             <main className="main-wrapper">
@@ -41,16 +40,11 @@ export class ProfilePage extends PureComponent {
                             <div className="profile__sum">~{balance} $</div>
                         </div>
                         </div>
-                        <h2 className="medium-title">Ваша последняя активность</h2>
-                        <div className="feed">
-                            <div className="feed__item">
-                                <div className="feed__item-header">
-                                    <div className="feed__item-name">Name</div>
-                                    <div className="feed__item-date">01.01.2018</div>
-                                </div>
-                                <div className="feed__item-text feed__item-text--sell">Купил 0.3 BTC за 199$</div>
-                            </div>
-                        </div>
+                        <h2 className="medium-title medium-title--center">Ваша последняя активность</h2>
+                        {userActivity ?
+                            (<Feed data={userActivity} />) :
+                            (null)
+                        }
                     </div>
                 </div>
                 <Footer />
@@ -62,8 +56,7 @@ export class ProfilePage extends PureComponent {
 const mapStateToProps = state => ({
     userInfo: getUserInfo(state),
     userActivity: getUserActivity(state),
-    balance: getWalletBalance(state),
-    error: getError(state)
+    balance: getWalletBalance(state)
 });
 
 const mapDispatchToProps = { getUserActivityRequest };
